@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.2.0 (2026-10-13)
 
 - The table of every call is saved at the top of `docs/spec.md`, and Claude files its own choices in `docs/decisions/by-claude.md`.
 - `docs/how-it-works.md` traces one real use file by file and walks through each outside thing failing on purpose.

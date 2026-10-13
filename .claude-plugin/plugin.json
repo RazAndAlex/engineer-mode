@@ -1,6 +1,6 @@
 {
   "name": "engineer-mode",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "You make the design and engineering calls, Claude builds. Claude asks for your approach first, adds the risks and options you missed, records each decision, then builds without stopping you.",
   "author": {
     "name": "RazAndAlex"
