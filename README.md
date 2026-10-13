@@ -4,7 +4,7 @@ A Claude Code plugin for people who want to make the design and engineering call
 
 Before Claude builds something that needs decisions, it asks for your approach to each one. Then it tells you what holds up, the risks you missed and the options you did not mention. It writes each decision to `docs/decisions/` in your project. After that it builds without stopping you.
 
-![One call played out: Claude asks with no options, you answer, Claude names one risk, you revise your own answer, and the decision is filed as yours](docs/media/one-call.gif)
+![One real session, start to finish: you ask for a small notes tool, Claude lists the calls that are yours, you answer each one, Claude builds, then shows how the result works and how it fails. The files it writes appear on the right as they are written.](docs/media/how-it-works.gif)
 
 ## Install
 
@@ -48,6 +48,8 @@ You type: `/engineer-mode:interview a page where my running club can sign up for
 8. **Claude shows how it works, and how it fails.** It writes `docs/how-it-works.md`: one real use traced file by file, and a "When things fail" section from breaking each outside thing on purpose. It then offers one optional step, once: you explain the main flow back in your own words, and fix a small bug it plants on a scratch branch. You can skip it.
 
 ## How it differs from a plain "plan first" prompt
+
+![One call played out: Claude asks with no options, you answer, Claude names one risk, you revise your own answer, and the decision is filed as yours](docs/media/one-call.gif)
 
 - **You answer first.** Claude keeps its recommendation until you have given your approach. Say "recommend" at any time to get it at once.
 - **Claude looks up the facts.** It asks you only for the calls. It never asks what the files can answer.
