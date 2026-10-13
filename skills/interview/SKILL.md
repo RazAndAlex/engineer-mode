@@ -1,13 +1,13 @@
 ---
 name: interview
-description: Approach-first design interview. Use before building a feature, a new project or any change that needs design or engineering calls (scope, data model, main flow, who can reach what, stack, where things live). The user reasons first; you add the facts, risks and options they missed, record each decision, then build without stopping them. Skip it for lookups, one-file fixes and renames.
+description: Approach-first design interview. Use before building a feature, a new project or any change that needs design or engineering calls (scope, data model, main flow, who can reach what, stack, where things live). The user reasons first; you add the facts, risks and options they missed, record each decision, build without stopping them, then show them how the result works and how it fails. Skip it for lookups, one-file fixes and renames.
 ---
 
 # Engineer mode: design interview
 
 The user owns the design and engineering calls. You own the facts, the risks and the build.
-The user wants to understand the project well enough to make good calls. They do not want
-to supervise every step.
+The user wants to understand the project well enough to make good calls, and to explain it
+later to someone who asks hard questions about it. They do not want to supervise every step.
 
 ## 1. Map the calls
 - Restate the task in one sentence.
@@ -29,12 +29,23 @@ to supervise every step.
 
 ## 3. Hand over and build
 - When every call is decided, show one table: call, decision, who proposed it (user, user revised after risk, or Claude on request).
-- Write docs/spec.md from the decision files.
+- Write docs/spec.md from the decision files. Put the same table at the top of it.
+- Write docs/decisions/by-claude.md: one line for each "decided by me" item, with its reason.
 - Build it. Do not ask for approval of code steps.
+- Each time you pick something the decision files do not cover (a library, a retry rule, how an error is handled, where a file lives), add one line to docs/decisions/by-claude.md: what you picked, why, and the file it lives in.
 - Stop the build only when a new design or engineering call appears that the decisions do not cover. Then go back to section 2 for that one call.
 - Before the report, start the result the way the user will start it, from a clean state (a fresh clone or an empty data folder), and use it once.
-- End with a short build report: what you built, the commands you ran and what each one printed, and which decision each part implements. Claim only what you ran. Write "not checked" for anything you did not run.
+
+## 4. Show how it works
+- Write docs/how-it-works.md. Follow one real use from the clean-start run through the code, from the first input to the last output. One line per step: what happens, the file and line, and the decision file it implements (or by-claude.md).
+- Find each outside thing the result depends on: a database, an API, a file, the network, user input. Break each one once on purpose (stop it, point it at a bad address, give it a bad file or bad input), run the result, then put it back. Add a section "When things fail" to docs/how-it-works.md: what you broke, what the user saw, and the file and line that handled it. If the result crashed or lost data, say so plainly. Fix it only when a decision file already says how; otherwise it is a new call for section 2.
+- End with a short build report: what you built, the commands you ran and what each one printed, and which decision each part implements. Point to docs/how-it-works.md and docs/decisions/by-claude.md. Claim only what you ran. Write "not checked" for anything you did not run.
+- In the same message, offer one optional step, once: the user explains the main flow in their own words, then fixes one bug you plant. If they say no or do not answer, stop there.
+- If they say yes:
+  1. Let them explain first. Compare it with docs/how-it-works.md. Say what matches and what does not, with the file and line for each mismatch.
+  2. Make a scratch branch (`practice/bug-1`). If the folder is not a git repository, work in a copy. Change one small thing in the main flow so that it breaks in a way the user can see. Tell them only the symptom and how to see it.
+  3. Give a hint only when they ask for one. When they find it or give up, show the change you made, then delete the scratch branch or the copy. Never leave the planted bug in the real code.
 
 ## Style
 - Short messages. One question per message.
-- Plain words. No quizzes, no lessons the user did not ask for.
+- Plain words. No quizzes and no lessons the user did not ask for. The step in section 4 is offered once, and runs only when the user says yes.
