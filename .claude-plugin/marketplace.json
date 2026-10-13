@@ -1,8 +1,17 @@
 {
   "name": "engineer-mode",
-  "owner": { "name": "RazAndAlex" },
-  "metadata": { "description": "Engineer mode: you make the design and engineering calls, Claude builds." },
+  "owner": {
+    "name": "RazAndAlex"
+  },
+  "metadata": {
+    "description": "Engineer mode: you make the design and engineering calls, Claude builds."
+  },
   "plugins": [
-    { "name": "engineer-mode", "source": "./", "description": "Approach-first design interview before a build." }
+    {
+      "name": "engineer-mode",
+      "source": "./",
+      "description": "Approach-first design interview before a build.",
+      "version": "0.1.0"
+    }
   ]
 }
