@@ -1,0 +1,18 @@
+name: Idea
+description: Suggest a change to the interview.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: step
+    attributes:
+      label: Which step it changes
+      description: Map the calls, one call at a time, or hand over and build.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why
+      description: A real task where the current behaviour got in the way.
+    validations:
+      required: true
