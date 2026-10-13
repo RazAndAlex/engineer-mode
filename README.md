@@ -4,6 +4,8 @@ A Claude Code plugin for people who want to make the design and engineering call
 
 Before Claude builds something that needs decisions, it asks for your approach to each one. Then it tells you what holds up, the risks you missed and the options you did not mention. It writes each decision to `docs/decisions/` in your project. After that it builds without stopping you.
 
+![How engineer mode runs: you give your approach, Claude checks it, you decide, the decision is written to a file, then Claude builds](docs/media/interview-loop.svg)
+
 ## Install
 
 In a terminal:
@@ -35,6 +37,8 @@ To turn it off, run `claude plugin disable engineer-mode`. To remove it, run `cl
 ## An example, start to finish
 
 You type: `/engineer-mode:interview a page where my running club can sign up for Saturday runs`.
+
+![One call played out: Claude asks, you answer, Claude names a risk and a missed option, you decide, the decision file is written, Claude builds](docs/media/interview-replay.svg)
 
 1. **Claude maps the calls.** It reads the project first, then lists the calls it needs from you: scope, data model, who can reach what. It decides the obvious ones itself and says so ("decided by me: same stack as the rest of the repo").
 2. **You answer first.** Claude asks: "Two people sign up for the last place at the same moment. What should happen?" It gives no options yet.
