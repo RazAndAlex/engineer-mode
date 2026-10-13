@@ -4,7 +4,7 @@ A Claude Code plugin for people who want to make the design and engineering call
 
 Before Claude builds something that needs decisions, it asks for your approach to each one. Then it tells you what holds up, the risks you missed and the options you did not mention. It writes each decision to `docs/decisions/` in your project. After that it builds without stopping you.
 
-![How engineer mode runs: you give your approach, Claude checks it, you decide, the decision is written to a file, then Claude builds](docs/media/interview-loop.svg)
+![One call played out: Claude asks with no options, you answer, Claude names one risk, you revise your own answer, and the decision is filed as yours](docs/media/one-call.gif)
 
 ## Install
 
@@ -38,11 +38,9 @@ To turn it off, run `claude plugin disable engineer-mode`. To remove it, run `cl
 
 You type: `/engineer-mode:interview a page where my running club can sign up for Saturday runs`.
 
-![One call played out: Claude asks, you answer, Claude names a risk and a missed option, you decide, the decision file is written, Claude builds](docs/media/interview-replay.svg)
-
 1. **Claude maps the calls.** It reads the project first, then lists the calls it needs from you: scope, data model, who can reach what. It decides the obvious ones itself and says so ("decided by me: same stack as the rest of the repo").
 2. **You answer first.** Claude asks: "Two people sign up for the last place at the same moment. What should happen?" It gives no options yet.
-3. **Claude adds what you missed.** You say "first one wins". Claude says that holds up, then names a risk: a member who cancels leaves a gap that nobody fills. It names one option you did not mention, a waiting list. You choose the waiting list.
+3. **Claude checks your answer, and you revise it.** You say "first one wins". Claude says that holds up, then names one risk: someone cancels at 7am and the place stays empty. You change your own answer: keep a waiting list and text the next person.
 4. **The decision goes on file.** Claude writes `docs/decisions/0002-full-runs.md` with your choice, your reasoning in your own words, the alternatives and the open risks.
 5. **Who can reach what is always your call.** Claude asks who can see the sign-up list and who can delete a sign-up. It never decides this one alone.
 6. **Claude builds.** It shows one table of every call and who proposed it, writes `docs/spec.md`, and builds without asking you to approve each step.
