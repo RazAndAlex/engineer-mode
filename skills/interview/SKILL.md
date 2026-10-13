@@ -32,19 +32,23 @@ later to someone who asks hard questions about it. They do not want to supervise
 - Write docs/spec.md from the decision files. Put the same table at the top of it.
 - Write docs/decisions/by-claude.md: one line for each "decided by me" item, with its reason.
 - Build it. Do not ask for approval of code steps.
-- Each time you pick something the decision files do not cover (a library, a retry rule, how an error is handled, where a file lives), add one line to docs/decisions/by-claude.md: what you picked, why, and the file it lives in.
-- Stop the build only when a new design or engineering call appears that the decisions do not cover. Then go back to section 2 for that one call.
+- Each time you must pick something the decision files do not cover, ask: does it change what the user sees, what data is kept, or who can reach it?
+  - If yes, it is a new call. Stop the build and go back to section 2 for that one call. Then add it to the table in docs/spec.md.
+  - If no (a library, a retry count, the wording of an error, where a file lives), pick it yourself. Add one line to docs/decisions/by-claude.md: what you picked, why, and the file it lives in.
 - Before the report, start the result the way the user will start it, from a clean state (a fresh clone or an empty data folder), and use it once.
 
 ## 4. Show how it works
 - Write docs/how-it-works.md. Follow one real use from the clean-start run through the code, from the first input to the last output. One line per step: what happens, the file and line, and the decision file it implements (or by-claude.md).
-- Find each outside thing the result depends on: a database, an API, a file, the network, user input. Break each one once on purpose (stop it, point it at a bad address, give it a bad file or bad input), run the result, then put it back. Add a section "When things fail" to docs/how-it-works.md: what you broke, what the user saw, and the file and line that handled it. If the result crashed or lost data, say so plainly. Fix it only when a decision file already says how; otherwise it is a new call for section 2.
-- End with a short build report: what you built, the commands you ran and what each one printed, and which decision each part implements. Point to docs/how-it-works.md and docs/decisions/by-claude.md. Claim only what you ran. Write "not checked" for anything you did not run.
+- Find each outside thing the result reads from or writes to: a database, an API, a file or folder, the network, user input. Leave out the language runtime and the operating system.
+- Break each one once on purpose (stop it, point it at a bad address, give it a bad file or bad input) and run the result. Copy any data first, and put the copy back after the run, also when the run fails.
+- Add a section "When things fail" to docs/how-it-works.md: what you broke, what the user saw, and the file and line that handled it. If the result crashed or lost data, say so plainly. Fix it only when a decision file already says how; otherwise it is a new call for section 2. After a fix, run the trace and the failure checks again.
+- End with a short build report: what you built, the commands you ran with the first line each one printed, and which decision each part implements. Point to docs/how-it-works.md, which holds the full output, and to docs/decisions/by-claude.md. Claim only what you ran. Write "not checked" for anything you did not run.
 - In the same message, offer one optional step, once: the user explains the main flow in their own words, then fixes one bug you plant. If they say no or do not answer, stop there.
 - If they say yes:
   1. Let them explain first. Compare it with docs/how-it-works.md. Say what matches and what does not, with the file and line for each mismatch.
-  2. Make a scratch branch (`practice/bug-1`). If the folder is not a git repository, work in a copy. Change one small thing in the main flow so that it breaks in a way the user can see. Tell them only the symptom and how to see it.
-  3. Give a hint only when they ask for one. When they find it or give up, show the change you made, then delete the scratch branch or the copy. Never leave the planted bug in the real code.
+  2. Copy the data folder. Make a scratch branch (`practice/bug-1`); if the folder is not a git repository, work in a copy of it. Change one small thing in the main flow so that it breaks in a way the user can see. Tell them only the symptom and how to see it.
+  3. The user finds the bug, fixes it and runs the main flow again. Give a hint only when they ask for one.
+  4. When they are done or give up, show the change you made. Switch back to the main branch, put back the data copy, and delete the scratch branch or the copy. Check that the main branch has the original code. Never leave the planted bug in the real code.
 
 ## Style
 - Short messages. One question per message.
